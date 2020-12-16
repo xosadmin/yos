@@ -103,9 +103,9 @@ generate_network() {
 	[ -n "$ifname" ] || return
 
 	# force bridge for multi-interface devices (and lan)
-	case "$1:$ifname" in
-		*\ * | lan:*) type="bridge" ;;
-	esac
+	#case "$1:$ifname" in
+	#	*\ * | lan:*) type="bridge" ;;
+	#esac
 
 	[ -n "$bridge" ] && {
 		if [ -z "$vlan" ]; then
@@ -140,7 +140,7 @@ generate_network() {
 		static)
 			local ipad
 			case "$1" in
-				lan) ipad=${ipaddr:-"192.168.1.1"} ;;
+				lan) ipad=${ipaddr:-"192.168.192.1"} ;;
 				*) ipad=${ipaddr:-"192.168.$((addr_offset++)).1"} ;;
 			esac
 
@@ -305,9 +305,9 @@ generate_static_system() {
 
 			local compat_version
 			if json_get_var compat_version compat_version; then
-				uci -q set "system.@system[-1].compat_version=$compat_version"
+				uci -q set "system.@system[-1].compat_version=1.01"
 			else
-				uci -q set "system.@system[-1].compat_version=1.0"
+				uci -q set "system.@system[-1].compat_version=1.01"
 			fi
 
 			if json_is_a ntpserver array; then

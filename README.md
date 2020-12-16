@@ -50,7 +50,8 @@ Notice: This compile cannot be launched on root user!
    运行`make -j8 download && make -j1 V=s`以开始编译
 
 ### Special Thanks  
-- Thanks to [Lean's OpenWrt source](https://github.com/coolsnowwolf/lede)
+- [Lean's OpenWrt source](https://github.com/coolsnowwolf/lede)
+- OpenWrt Contributers
 
 ## License  
 [OpenWrt](http://www.openwrt.org/) and Y-OS is licensed under GPL-2.0

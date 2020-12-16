@@ -47,7 +47,7 @@ subversion libz-dev libc-dev rsync
    运行`make -j8 download && make -j1 V=s`以开始编译
 
 ### Special Thanks  
-- Thanks to (https://github.com/coolsnowwolf/lede)Lean's OpenWrt source
+- Thanks to [Lean's OpenWrt source](https://github.com/coolsnowwolf/lede)
 
 ## License  
 OpenWrt and Y-OS is licensed under GPL-2.0

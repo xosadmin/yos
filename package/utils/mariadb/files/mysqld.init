@@ -1,0 +1,146 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2010-2018 OpenWrt.org
+
+START=95
+STOP=10
+
+NAME=mysqld
+
+LOGGER="/usr/bin/logger -p user.err -s -t $NAME --"
+
+MYSQLADMIN=/usr/bin/mysqladmin
+MYSQLD=/usr/bin/$NAME
+MYSQLDSAFE=/usr/bin/mysqld_safe
+
+# mysqladmin likes to read /root/.my.cnf which could cause issues.
+export HOME=/etc/mysql
+
+# Safeguard (relative paths, core dumps...)
+cd /
+
+mysqld_get_param() {
+	$MYSQLD --print-defaults \
+		| tr " " "\n" \
+		| grep -- "--$1" \
+		| tail -n 1 \
+		| cut -d= -f2
+}
+
+# Checks if a server is running and accessible.
+#
+# check_alive insists on a pingable server
+# check_dead also fails if there is a lost mysqld in the process list
+#
+# Usage: boolean mysqld_status [check_alive|check_dead]
+mysqld_status() {
+	if $MYSQLADMIN ping >/dev/null 2>&1; then
+		ping_alive=1
+	else
+		ping_alive=0
+	fi
+
+	ps_alive=0
+	pidfile=$(mysqld_get_param pid-file)
+	if [ -f "$pidfile" ] && kill -0 $(cat "$pidfile") >/dev/null 2>&1; then
+		ps_alive=1
+	fi
+
+	if { [ "$1" = check_alive ] && [ $ping_alive = 1 ]; } || \
+		{ [ "$1" = check_dead ] && [ $ping_alive = 0 ] \
+					&& [ $ps_alive = 0 ]; }
+	then
+		return 0 # EXIT_SUCCESS
+	else
+		return 1 # EXIT_FAILURE
+	fi
+}
+
+start() {
+	conf=/etc/mysql/my.cnf
+	logdir=/var/log/mysql
+	rundir=/var/run/mysqld
+
+	hint="please fix your server configuration in /etc/mysql/"
+
+	for i in $MYSQLD $MYSQLADMIN $MYSQLDSAFE; do
+		if [ ! -x $i ]; then
+			$LOGGER $i is missing
+			exit 1
+		fi
+	done
+
+	if [ ! -r $conf ]; then
+		$LOGGER $conf cannot be read
+		exit 1
+	fi
+
+	config_load $NAME
+
+	config_get_bool enabled general enabled 0
+	if [ $enabled -eq 0 ]; then
+		$LOGGER service not enabled in /etc/config/$NAME
+		exit 1
+	fi
+
+	config_get options general options
+
+	datadir=$(mysqld_get_param datadir)
+	tmpdir=$(mysqld_get_param tmpdir)
+
+	if [ -z "$datadir" ]; then
+		$LOGGER datadir is not set
+		$LOGGER $hint
+		exit 1
+	fi
+
+	if [ -z "$tmpdir" ]; then
+		$LOGGER tmpdir is not set
+		$LOGGER $hint
+		exit 1
+	fi
+
+	if [ ! -f "$datadir/mysql/tables_priv.MAD" ]; then
+		args="--force"
+		basedir=$(mysqld_get_param basedir)
+		[ -n "$basedir" ] && args="$args --basedir=$basedir"
+
+		$LOGGER Cannot detect privileges table. You might need to run
+		$LOGGER \'mysql_install_db "$args"\'
+		$LOGGER to initialize the system tables.
+		exit 1
+	fi
+
+	# Start daemon
+	if mysqld_status check_alive; then
+		$LOGGER already running
+	else
+		for i in $logdir $rundir; do
+			opts="-m 0750"
+			if ! [ -e $i ]; then
+				# $rundir needs to be accessible for
+				# clients
+				if [ $i = $rundir ]; then
+					opts=
+				fi
+				mkdir -p $opts $i
+				[ -d $i ] && chown mariadb:mariadb $i
+			fi
+		done
+
+		$MYSQLDSAFE $options >/dev/null 2>&1 &
+	fi
+}
+
+stop() {
+	if ! mysqld_status check_dead; then
+		$MYSQLADMIN shutdown
+	fi
+}
+
+reload() {
+	if mysqld_status check_alive; then
+		$MYSQLADMIN reload
+	else
+		$LOGGER not running
+	fi
+}

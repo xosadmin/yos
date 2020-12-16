@@ -1,4 +1,4 @@
-
+Y-OS OpenWrt with Lean's Package
 
 Y-os is based on OpenWrt. OpenWrt Project is a Linux operating system targeting embedded devices.   
 Y-os基于OpenWrt，是一个适用于嵌入式设备的操作系统。
@@ -47,7 +47,9 @@ subversion libz-dev libc-dev rsync
    运行`make -j8 download && make -j1 V=s`以开始编译
 
 ### Special Thanks  
-- Thanks to Lean's OpenWrt source
+- Thanks to (https://github.com/coolsnowwolf/lede)Lean's OpenWrt source
 
 ## License  
 OpenWrt and Y-OS is licensed under GPL-2.0
+  
+Sunshine!

@@ -50,6 +50,6 @@ subversion libz-dev libc-dev rsync
 - Thanks to [Lean's OpenWrt source](https://github.com/coolsnowwolf/lede)
 
 ## License  
-OpenWrt and Y-OS is licensed under GPL-2.0
+[OpenWrt](http://www.openwrt.org/) and Y-OS is licensed under GPL-2.0
   
 Sunshine!

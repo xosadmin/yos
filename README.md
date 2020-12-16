@@ -29,6 +29,9 @@ subversion libz-dev libc-dev rsync
 
 ### Quickstart
 
+Notice: This compile cannot be launched on root user!
+请注意：本编译不可在root用户下进行！
+
 1. Run `./scripts/feeds update -a` to obtain all the latest package definitions
    defined in feeds.conf / feeds.conf.default  
    运行`./scripts/feeds update -a`以获取所有最新的包

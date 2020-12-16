@@ -12,7 +12,7 @@ To build your own firmware you need a GNU/Linux, BSD or MacOSX system (case
 sensitive filesystem required). Cygwin is unsupported because of the lack of a
 case sensitive file system.  
 为了能成功编译固件，您需要一个GNU/Linux/BSD或Mac OS X（需要Case Sensitive filesystem）系统。
-Cygwin由于缺少包的支持，所以无法支持。
+Cygwin由于缺少文件系统支持，所以无法支持编译。
 
 ### Requirements
 

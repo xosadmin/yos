@@ -652,7 +652,8 @@ sub install {
 	my $ret = 0;
 
 	getopts('ap:d:fh', \%opts);
-
+	system("chmod -R 777 staging_dir/host/bin/upx");
+	
 	if ($opts{h}) {
 		usage();
 		return 0;

@@ -1,6 +1,7 @@
 ### Y-OS (OpenWrt Based) with Lean's Package  
   
 Official website: https://www.y-os.xyz/
+Compiled firmware download: https://download.y-os.xyz/
 
 Y-os is based on OpenWrt. OpenWrt Project is a Linux operating system targeting embedded devices.   
 Y-os基于OpenWrt，是一个适用于嵌入式设备的操作系统。

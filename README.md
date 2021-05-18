@@ -1,6 +1,6 @@
 ### Y-OS (OpenWrt Based) with Lean's Package  
   
-Note: Please use 1.04-RCX to compile firmware for 802.11ax devices.  
+Note: Please use source codes under 1.04-RC branches to compile firmware for 802.11ax devices.  
   
 Website: https://www.y-os.xyz/  
 Compiled firmware download: https://download.y-os.xyz/

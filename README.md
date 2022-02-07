@@ -1,90 +1,65 @@
-![OpenWrt logo](include/logo.png)
+### Y-OS (OpenWrt Based) with Lean's Package  
+  
+Website: https://www.y-os.xyz/  
+Compiled firmware download: https://download.y-os.xyz/  
+Docker Image: https://hub.docker.com/r/xosadmin/yos-docker  
+  
+Y-os is based on OpenWrt, which is a Linux operating system targeting embedded devices.   
+Y-os基于OpenWrt，是一个适用于嵌入式设备的操作系统。
 
-OpenWrt Project is a Linux operating system targeting embedded devices. Instead
-of trying to create a single, static firmware, OpenWrt provides a fully
-writable filesystem with package management. This frees you from the
-application selection and configuration provided by the vendor and allows you
-to customize the device through the use of packages to suit any application.
-For developers, OpenWrt is the framework to build an application without having
-to build a complete firmware around it; for users this means the ability for
-full customization, to use the device in ways never envisioned.
-
-Sunshine!
+All releases and source codes are tested and works stability.  
+所有的release和代码已经经过测试并可以使用
 
 ## Development
 
 To build your own firmware you need a GNU/Linux, BSD or MacOSX system (case
 sensitive filesystem required). Cygwin is unsupported because of the lack of a
-case sensitive file system.
+case sensitive file system.  
+为了能成功编译固件，您需要一个GNU/Linux/BSD或Mac OS X（需要Case Sensitive filesystem）系统。
+Cygwin由于缺少文件系统支持，所以无法支持编译。
 
 ### Requirements
 
 You need the following tools to compile OpenWrt, the package names vary between
 distributions. A complete list with distribution specific packages is found in
 the [Build System Setup](https://openwrt.org/docs/guide-developer/build-system/install-buildsystem)
-documentation.
+documentation.  
+编译本固件至少需要以下包的支持：
 
 ```
-binutils bzip2 diff find flex gawk gcc-6+ getopt grep install libc-dev libz-dev
-make4.1+ perl python3.6+ rsync subversion unzip which
+gcc binutils bzip2 flex python3 perl make find grep diff unzip gawk getopt
+subversion libz-dev libc-dev rsync
 ```
 
 ### Quickstart
 
+Notice: This compile cannot be executed under root user!  
+请注意：本编译不可在root用户下进行！
+
 1. Run `./scripts/feeds update -a` to obtain all the latest package definitions
-   defined in feeds.conf / feeds.conf.default
+   defined in feeds.conf / feeds.conf.default  
+   运行`./scripts/feeds update -a`以获取所有最新的包
 
 2. Run `./scripts/feeds install -a` to install symlinks for all obtained
-   packages into package/feeds/
+   packages into package/feeds/  
+   运行`./scripts/feeds install -a`以安装前一步获取的包
 
 3. Run `make menuconfig` to select your preferred configuration for the
-   toolchain, target system & firmware packages.
+   toolchain, target system & firmware packages.  
+   运行`make menuconfig`以定制您的编译
 
-4. Run `make` to build your firmware. This will download all sources, build the
+4. Run `make -j8 download && make -j1 V=s` to build your firmware. This will download all sources, build the
    cross-compile toolchain and then cross-compile the GNU/Linux kernel & all chosen
-   applications for your target system.
+   applications for your target system.  
+   运行`make -j8 download && make -j1 V=s`以开始编译
 
-### Related Repositories
+### Special Thanks  
+- [**Lean's OpenWrt source**](https://github.com/coolsnowwolf/lede)
+- [**Li2nOnline**](https://github.com/Lienol)
+- [**riverscn**](https://github.com/riverscn)
+- All OpenWrt Contributers
 
-The main repository uses multiple sub-repositories to manage packages of
-different categories. All packages are installed via the OpenWrt package
-manager called `opkg`. If you're looking to develop the web interface or port
-packages to OpenWrt, please find the fitting repository below.
-
-* [LuCI Web Interface](https://github.com/openwrt/luci): Modern and modular
-  interface to control the device via a web browser.
-
-* [OpenWrt Packages](https://github.com/openwrt/packages): Community repository
-  of ported packages.
-
-* [OpenWrt Routing](https://github.com/openwrt/routing): Packages specifically
-  focused on (mesh) routing.
-
-* [OpenWrt Video](https://github.com/openwrt/video): Packages specifically
-  focused on display servers and clients (Xorg and Wayland).
-
-## Support Information
-
-For a list of supported devices see the [OpenWrt Hardware Database](https://openwrt.org/supported_devices)
-
-### Documentation
-
-* [Quick Start Guide](https://openwrt.org/docs/guide-quick-start/start)
-* [User Guide](https://openwrt.org/docs/guide-user/start)
-* [Developer Documentation](https://openwrt.org/docs/guide-developer/start)
-* [Technical Reference](https://openwrt.org/docs/techref/start)
-
-### Support Community
-
-* [Forum](https://forum.openwrt.org): For usage, projects, discussions and hardware advise.
-* [Support Chat](https://webchat.oftc.net/#openwrt): Channel `#openwrt` on **oftc.net**.
-
-### Developer Community
-
-* [Bug Reports](https://bugs.openwrt.org): Report bugs in OpenWrt
-* [Dev Mailing List](https://lists.openwrt.org/mailman/listinfo/openwrt-devel): Send patches
-* [Dev Chat](https://webchat.oftc.net/#openwrt-devel): Channel `#openwrt-devel` on **oftc.net**.
-
-## License
-
-OpenWrt is licensed under GPL-2.0
+## License  
+[OpenWrt](http://www.openwrt.org/) and Y-OS is licensed under GPL-2.0
+  
+Sunshine!

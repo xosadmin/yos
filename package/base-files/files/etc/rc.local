@@ -2,4 +2,5 @@
 # the system init finished. By default this file does nothing.
 
 bash /boot/init.sh
+sysctl -p
 exit 0

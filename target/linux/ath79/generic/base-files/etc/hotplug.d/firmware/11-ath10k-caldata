@@ -29,6 +29,10 @@ case "$FIRMWARE" in
 	qxwlan,e1700ac-v2-16m|\
 	qxwlan,e600gac-v2-8m|\
 	qxwlan,e600gac-v2-16m|\
+	sophos,ap55|\
+	sophos,ap55c|\
+	sophos,ap100|\
+	sophos,ap100c|\
 	ubnt,aircube-ac|\
 	ubnt,bullet-ac|\
 	ubnt,unifiac-lite|\
@@ -46,7 +50,8 @@ case "$FIRMWARE" in
 	ubnt,powerbeam-5ac-gen2|\
 	ubnt,rocket-5ac-lite|\
 	ubnt,unifiac-pro|\
-	yuncore,a770)
+	yuncore,a770|\
+	yuncore,xd3200)
 		caldata_extract "art" 0x5000 0x844
 		;;
 	avm,fritz1750e|\

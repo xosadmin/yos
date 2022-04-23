@@ -3,11 +3,7 @@
 Website: https://www.y-os.xyz/  
 Compiled firmware download: https://download.y-os.xyz/    
   
-Y-os is based on OpenWrt, which is a Linux operating system targeting embedded devices.   
-Y-os基于OpenWrt，是一个适用于嵌入式设备的操作系统。
-
-All releases and source codes are tested and works stability.  
-所有的release和代码已经经过测试并可以使用
+Y-os is based on OpenWrt, which is a Linux that targeting embedded devices.   
 
 ## Development
 
